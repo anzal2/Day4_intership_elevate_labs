@@ -1,22 +1,73 @@
 # Day4_intership_elevate_labs
  Basic firewall management skills and understanding of network traffic filtering
 
-Opened the firewall configuration tool:
+🪟 On Windows (Firewall GUI):
+🔹 I opened the Windows Defender Firewall via Control Panel > System and Security.
 
-Windows: Used Windows Firewall with Advanced Security
+🔹 Clicked on Advanced Settings to access the firewall rule manager.
 
-Linux: Used UFW (Uncomplicated Firewall) via terminal
+🔹 Viewed current rules under Inbound Rules.
 
-Listed current firewall rules to review existing configurations.
+🔹 Created a new inbound rule to block TCP port 23 (Telnet).
 
-Added a rule to block inbound traffic on port 23 (Telnet).
+🔹 Selected "Block the connection" and applied it to all profiles (Domain, Private, Public).
 
-Tested the rule by attempting to connect to port 23 locally and remotely to ensure it was effectively blocked.
+🔹 Named the rule as "Block Telnet" and saved it.
 
-Added a rule to allow SSH (port 22) to maintain secure remote access on Linux.
+🔹 Installed the Telnet client using the command:
 
-Removed the test rule for Telnet to restore the firewall to its original state.
+cmd
+Copy
+Edit
+dism /online /Enable-Feature /FeatureName:TelnetClient
+🔹 Tested the rule using:
 
-Documented all steps using relevant terminal commands or GUI paths.
+cmd
+Copy
+Edit
+telnet localhost 23
+The connection was blocked as expected.
 
-Understood and demonstrated that firewalls filter network traffic by allowing or denying packets based on defined rules like port number, protocol, and traffic direction.
+🔹 Later, I deleted the block rule to restore the original state.
+
+🐧 On Linux (UFW - Terminal):
+🔹 Opened terminal and ensured UFW is installed and active.
+
+🔹 Listed current firewall rules using:
+
+bash
+Copy
+Edit
+sudo ufw status numbered
+🔹 Added a rule to deny incoming traffic on port 23:
+
+bash
+Copy
+Edit
+sudo ufw deny 23
+🔹 Used telnet to test the block on port 23:
+
+bash
+Copy
+Edit
+telnet localhost 23
+Got "connection refused", confirming the block was working.
+
+🔹 Allowed SSH connection on port 22 using:
+
+bash
+Copy
+Edit
+sudo ufw allow 22
+🔹 Removed the deny rule for port 23:
+
+bash
+Copy
+Edit
+sudo ufw delete deny 23
+🧾 Summary of What I Learned:
+🔸 Firewall filters traffic based on defined rules for ports, protocols, and directions (inbound/outbound).
+
+🔸 Blocking a port prevents unwanted access, while allowing essential ports (like SSH) maintains secure connectivity.
+
+🔸 Both Windows Firewall and UFW provide effective ways to manage network security.
